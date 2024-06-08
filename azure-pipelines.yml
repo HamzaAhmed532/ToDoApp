@@ -10,8 +10,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 jobs:
-- job: Frontend
-  displayName: 'Frontend'
+- job: BuildFrontend
+  displayName: 'Build Frontend'
   steps:
   - task: NodeTool@0
     inputs:
@@ -24,13 +24,8 @@ jobs:
       npm run build
     displayName: 'Build Frontend'
 
-  - script: |
-      cd frontend
-      npm run test
-    displayName: 'Run Frontend Tests'
-
-- job: Backend
-  displayName: 'Backend'
+- job: BuildBackend
+  displayName: 'Build Backend'
   steps:
   - task: NodeTool@0
     inputs:
@@ -41,6 +36,23 @@ jobs:
       cd backend
       npm install
     displayName: 'Install Backend Dependencies'
+
+- job: RunFrontendTests
+  displayName: 'Run Frontend Tests'
+  dependsOn: BuildFrontend
+  steps:
+  - task: NodeTool@0
+
+  - script: |
+      cd frontend
+      npm run test
+    displayName: 'Run Frontend Tests'
+
+- job: RunBackendTests
+  displayName: 'Run Backend Tests'
+  dependsOn: BuildBackend
+  steps:
+  - task: NodeTool@0
 
   - script: |
       cd backend
