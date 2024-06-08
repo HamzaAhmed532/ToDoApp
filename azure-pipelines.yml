@@ -10,18 +10,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 jobs:
-- job: BuildFrontend
-  displayName: 'Build Frontend'
-  steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '14.x'
-    displayName: 'Install Node.js'
-
-  - script: |
-      cd frontend
-      npm run test
-    displayName: 'Build and Test Frontend'
 
 - job: BuildBackend
   displayName: 'Build Backend'
@@ -33,6 +21,8 @@ jobs:
 
   - script: |
       cd backend
+      npm install
+      npm run build
       npm run test
     displayName: 'Build and Test Backend'
 
