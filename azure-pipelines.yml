@@ -22,7 +22,8 @@ jobs:
       cd frontend
       npm install
       npm run build
-    displayName: 'Build Frontend'
+      npm run test
+    displayName: 'Build and Test Frontend'
 
 - job: BuildBackend
   displayName: 'Build Backend'
@@ -35,26 +36,7 @@ jobs:
   - script: |
       cd backend
       npm install
-    displayName: 'Install Backend Dependencies'
-
-- job: RunFrontendTests
-  displayName: 'Run Frontend Tests'
-  dependsOn: BuildFrontend
-  steps:
-  - task: NodeTool@0
-
-  - script: |
-      cd frontend
+      npm run build
       npm run test
-    displayName: 'Run Frontend Tests'
+    displayName: 'Build and Test Backend'
 
-- job: RunBackendTests
-  displayName: 'Run Backend Tests'
-  dependsOn: BuildBackend
-  steps:
-  - task: NodeTool@0
-
-  - script: |
-      cd backend
-      npm run test
-    displayName: 'Run Backend Tests'
