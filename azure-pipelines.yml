@@ -20,8 +20,6 @@ jobs:
 
   - script: |
       cd frontend
-      npm install
-      npm run build
       npm run test
     displayName: 'Build and Test Frontend'
 
@@ -35,8 +33,6 @@ jobs:
 
   - script: |
       cd backend
-      npm install
-      npm run build
       npm run test
     displayName: 'Build and Test Backend'
 
